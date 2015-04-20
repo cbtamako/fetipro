@@ -1,0 +1,7 @@
+Django<1.9
+Pillow
+django-bower
+django-debug-toolbar
+oauthlib
+python-social-auth
+twitter

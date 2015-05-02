@@ -8,7 +8,8 @@ from collections import OrderedDict
 from fetipro.user.forms import UserFetiForm
 from django.contrib import messages
 from django.contrib.auth import logout as django_logout
-from django.http.response import Http404
+from django.http.response import Http404, HttpResponseRedirect
+from fetipro.master.forms import FetiForm
 
 
 def index(request):
@@ -97,15 +98,59 @@ def feties(request, username=None, is_edit=False):
 def edit_feties(request):
     return feties(request, username=request.user.username, is_edit=True)
 
+@login_required
+def add_feti(request):
+    form = FetiForm()
 
+    if request.method == "POST":
+        form = FetiForm(request.POST, request.FILES)
+        print(request.FILES)
+        if form.is_valid():
+            form.save(user=request.user)
+            messages.success(request, "申請ありがとうございます")
+            return HttpResponseRedirect("")
 
+    context = {
+               "form":form
+               }
+    return render(request, "feti_form.html", context)
 
+@login_required
+def authorize_feti(request):
+    if not request.user.can_authorize:
+        messages.warning(request, "権限がありません")
+        return redirect("add_feti")
 
+    feties = Feti.objects.filter(status=Feti.Status.Unauthorided).order_by("parent__ordering", "parent__id", "id")
 
+    if request.method == "POST":
+        feti_id = request.POST.get("feti")
+        action = request.POST.get("action")
 
+        try:
+            feti = feties.get(id=feti_id)
+            if action == "authorize":
+                feti.status = Feti.Status.Authorized
+                feti.authorized_by = request.user
+                feti.save()
+                messages.success(request, "{0} を承認しました".format(feti.name))
+            elif action == "ignore":
+                feti.status = Feti.Status.Ignored
+                feti.authorized_by = request.user
+                feti.save()
+                messages.success(request, "{0} を却下しました".format(feti.name))
+            else:
+                raise ValueError("Invalid action")
 
+            return HttpResponseRedirect("")
 
+        except Feti.DoesNotExist:
+            messages.error(request, "エラーが発生しました")
 
+    context = {
+               "feties":feties,
+               }
+    return render(request, "feti_authorize.html", context)
 
 
 

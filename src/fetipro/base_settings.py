@@ -111,6 +111,7 @@ TEMPLATES = [
                 'social.apps.django_app.context_processors.backends',
                 'social.apps.django_app.context_processors.login_redirect',
                 'fetipro.context_processors.ga',
+                'fetipro.context_processors.unauthorized_feties',
             ],
         },
     },
@@ -157,6 +158,9 @@ LOGIN_URL = "index"
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
 STATIC_URL = '/static/'
+
+MEDIA_ROOT = "uploads/"
+MEDIA_URL = "/media/"
 
 STATICFILES_FINDERS = (
     "django.contrib.staticfiles.finders.FileSystemFinder",

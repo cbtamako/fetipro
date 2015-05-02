@@ -10,12 +10,13 @@ class Feti(models.Model):
         verbose_name = "フェチ"
         verbose_name_plural = "フェチ"
         ordering = ("ordering", "id")
+        permissions = (("can_authorize", "承認可能"),)
 
     ordering = models.IntegerField("表示順", default=100)
     created_at = models.DateTimeField("新規登録日時", auto_now_add=True)
     updated_at = models.DateTimeField("最終更新日時", auto_now=True)
 
-    slug = models.SlugField("スラッグ", max_length=50, unique=True)
+    slug = models.SlugField("省略名", max_length=50, unique=True)
     name = models.CharField("名称", max_length=100, unique=True)
     parent = models.ForeignKey("self", related_name="children", blank=True, null=True)
     icon = models.ImageField("アイコン", blank=True)

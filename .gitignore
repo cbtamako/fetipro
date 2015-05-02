@@ -60,4 +60,4 @@ qlite3 arget/
 *.sqlite3
 settings.py
 production_settings.py
-
+uploads

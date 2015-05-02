@@ -115,6 +115,9 @@ class User(AbstractBaseUser, PermissionsMixin):
             cache.set("tw_uid_{0}".format(account.uid), False)
         return user
 
+    @property
+    def can_authorize(self):
+        return self.has_perm("feti.can_authorize")
 
 class UserFeti(models.Model):
 

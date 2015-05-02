@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block title %}{{ block.super }} | フェチ申請{% endblock %}
+
+{% block main %}
+
+<div class="row">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">新規フェチ申請</h3>
+    </div>
+    <div class="panel-body">
+      <form class="form-horizontal" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="form-group">
+          <label for="id_parent" class="col-sm-2 control-label">大分類</label>
+          <div class="col-sm-10">
+            {{ form.parent.errors }}
+            {{ form.parent }}
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label for="id_name" class="col-sm-2 control-label">名称</label>
+          <div class="col-sm-10">
+            {{ form.name.errors }}
+            {{ form.name }}
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label for="id_slug" class="col-sm-2 control-label">省略名(半角英数のみ)</label>
+          <div class="col-sm-4">
+            {{ form.slug.errors }}
+            {{ form.slug }}
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label for="id_icon" class="col-sm-2 control-label">アイコン(任意)</label>
+          <div class="col-sm-4">
+            {{ form.icon.errors }}
+            {{ form.icon }}
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" class="btn btn-default">申請</button>
+          </div>
+        </div>
+  
+      <form>
+    </div>
+  </div>
+</div>
+
+
+{% endblock %}

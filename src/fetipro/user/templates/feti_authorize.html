@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block title %}{{ block.super }} | フェチ承認{% endblock %}
+
+{% block extrahead %}
+<script type="text/javascript">
+$(function(){
+  $("button").click(function(){
+    var button = $(this);
+    var action = button.attr("value");
+    
+    if(action == "authorize") action="承認";
+    else if(action == "ignore") action="拒否";
+    
+    var ret = confirm(button.data("name") + " を " + action + "しますか？");
+    return ret;
+  });
+});
+</script>
+{% endblock %}
+
+{% block main %}
+
+<div class="row">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">新規フェチ承認</h3>
+    </div>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>大分類</th><th>名称</th><th>短縮名</th><th>申請者</th><th></th>
+        </tr>
+      </thead>
+      <tbody>
+      {% for feti in feties %}
+        <tr>
+          <td>{{ feti.parent }}</td>
+          <td>{{ feti.name }}</td>
+          <td>{{ feti.slug }}</td>
+          <td>
+            {% if feti.created_by %}
+            <a href="{% url "user_feties" username=feti.created_by.username %}">
+              {{ feti.created_by.display_name }}
+              {% if feti.created_by.get_twitter_account %}
+              (@{{ feti.created_by.get_twitter_account.screen_name }})
+              {% endif %}
+            </a>
+            {% endif %}
+          </td>
+          <td>
+            <form method="post">
+              {% csrf_token %}
+              <input type="hidden" name="feti" value="{{ feti.id }}"/>
+              <button class="btn btn-success btn-xs" type="submit" name="action" value="authorize" data-name="{{ feti.name }}">承認</button>
+              <button class="btn btn-warning btn-xs" type="submit" name="action" value="ignore" data-name="{{ feti.name }}">却下</button>
+            </form>
+          </td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+{% endblock %}

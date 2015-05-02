@@ -1,0 +1,50 @@
+body {
+  min-height: 2000px;
+  padding-top: 70px;
+}
+
+
+.twitter_profile {
+  min-height: 150px;
+}
+
+.twitter_profile .icon {
+  float: left;
+  width: 130px;
+  padding-top: 10px;
+  margin: 0px;
+}
+
+.twitter_profile img {
+  width: 100px;
+  margin: 15px;
+}
+
+
+.twitter_profile .profile {
+  margin: 20px;
+  margin-left: 130px;
+}
+
+
+.twitter_profile .profile > div p.lead {
+  margin-bottom: 5px;
+}
+
+.twitter_profile .profile > div p {
+  margin: 0px;
+}
+
+
+.feties .list-group-item.non span.name {
+  color: #ccc;
+}
+
+.feties .list-group-item.no span.name {
+  color: #ccc;
+}
+
+.feties .badge.yes {
+  background-color: #337ab7;
+}
+

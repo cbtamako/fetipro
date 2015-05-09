@@ -130,7 +130,6 @@ class UserFeti(models.Model):
 
     @property
     def is_none(self):
-        print(self.rating)
         return self.rating is None
 
     @property

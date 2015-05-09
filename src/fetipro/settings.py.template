@@ -1,0 +1,19 @@
+# encoding=utf-8
+
+# SECURITY WARNING: keep the secret key used in production secret!
+SECRET_KEY = 'daej$!lx9*!48tm28qe3q29q2dh*jhksylcoxrnc44vvj(oh$&'
+
+from fetipro.base_settings import *
+
+SOCIAL_AUTH_TWITTER_KEY = 'EDIT_HERE'
+SOCIAL_AUTH_TWITTER_SECRET = 'EDIT_HERE'
+
+SOCIAL_AUTH_TWITTER_ACCESS_KEY = 'EDIT_HERE'
+SOCIAL_AUTH_TWITTER_ACCESS_SECRET = 'EDIT_HERE'
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
+        'LOCATION': '/tmp/django',
+    }
+}

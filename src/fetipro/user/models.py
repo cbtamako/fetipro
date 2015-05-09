@@ -121,33 +121,22 @@ class User(AbstractBaseUser, PermissionsMixin):
 
 class UserFeti(models.Model):
 
-    class Status(object):
-        Yes = 1
-        No = 0
-        Non = -1
-
     user = models.ForeignKey(User)
     feti = models.ForeignKey("master.Feti")
     created_at = models.DateTimeField("新規登録日時", auto_now_add=True)
     updated_at = models.DateTimeField("最終更新日時", auto_now=True)
 
-    STATUS_CHOICES = (
-                      (Status.Yes, "はい"),
-                      (Status.No, "いいえ"),
-                      (Status.Non, "未回答")
-                      )
-    status = models.IntegerField("状態", choices=STATUS_CHOICES)
+    rating = models.IntegerField("レーティング", null=True)
 
     @property
-    def is_non(self):
-        return self.status == self.Status.Non
+    def is_none(self):
+        print(self.rating)
+        return self.rating is None
 
     @property
     def is_yes(self):
-        return self.status == self.Status.Yes
+        return self.rating > 0
 
     @property
     def is_no(self):
-        return self.status == self.Status.No
-
-
+        return self.rating == 0

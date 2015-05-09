@@ -32,21 +32,17 @@
   <div class="panel-heading">{{ feti }}</div>
     <ul class="list-group feties">
       {% for f in children %}
-        <li class="list-group-item {% if not is_edit %}{% if f.form.instance.is_non %}non{% endif %}{% if f.form.instance.is_no %}no{% endif %}{% if f.form.instance.is_yes %}yes{% endif %}{% endif %}">
+        <li class="list-group-item {% if not is_edit %}{% if f.form.instance.is_none %}none{% endif %}{% if f.form.instance.is_no %}no{% endif %}{% if f.form.instance.is_yes %}yes{% endif %}{% endif %}">
         {% if not is_edit %}
-          {% if f.form.instance.is_non %}
-          <span class="badge non">未回答</span>
-          {% endif %}
-          {% if f.form.instance.is_no %}
-          <span class="badge no">いいえ</span>
-          {% endif %}
-          {% if f.form.instance.is_yes %}
-          <span class="badge yes">はい</span>
+          {% if f.form.instance.is_none %}
+          <span class="badge">未回答</span>
+          {% else %}
+          <span class="badge">{{ f.form.instance.rating }}%</span>
           {% endif %}
         {% else %}
           <input type="hidden" name="feties" value="{{ f.id }}"/>
         {% endif %}
-          <span class="name">{{ f }}{% if f == feti %} 全般{% endif %}</span>{% if is_edit %} <span style="float:right;">{{ f.form.status }}</span>{% endif %}
+          <span class="name">{{ f }}{% if f == feti %} 全般{% endif %}</span>{% if is_edit %} <span style="float:right;">{{ f.form.rating }}</span>{% endif %}
         </li>
       {% endfor %}
     </ul>

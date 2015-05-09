@@ -49,7 +49,7 @@ def feties(request, username=None, is_edit=False):
         if feti in user_feties:
             user_feti = user_feties[feti]
         else:
-            user_feti = UserFeti(user=user, feti=feti, status=UserFeti.Status.Non)
+            user_feti = UserFeti(user=user, feti=feti)
 
         if request.method == "POST" and str(feti.id) in request.POST.getlist("feties"):
             return UserFetiForm(request.POST, instance=user_feti)
@@ -85,10 +85,6 @@ def feties(request, username=None, is_edit=False):
                "current_user":user,
                "is_edit":is_edit,
                "feties":feties,
-               "UserFetiStatus":UserFeti.Status,
-               "status_non":UserFeti.Status.Non,
-               "status_yes":UserFeti.Status.Yes,
-               "status_no":UserFeti.Status.No,
                }
 
     return render(request, "feties.html", context)
@@ -151,8 +147,3 @@ def authorize_feti(request):
                "feties":feties,
                }
     return render(request, "feti_authorize.html", context)
-
-
-
-
-

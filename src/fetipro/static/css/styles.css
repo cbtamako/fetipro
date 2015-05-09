@@ -36,7 +36,7 @@ body {
 }
 
 
-.feties .list-group-item.non span.name {
+.feties .list-group-item.none span.name {
   color: #ccc;
 }
 
@@ -44,7 +44,6 @@ body {
   color: #ccc;
 }
 
-.feties .badge.yes {
+.feties .list-group-item.yes .badge {
   background-color: #337ab7;
 }
-
